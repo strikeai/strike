@@ -7,7 +7,7 @@ from typing import Any
 
 import httpx
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 _DEFAULT_URL = "https://strike-ai.eu"
 

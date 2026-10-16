@@ -74,6 +74,10 @@ curl https://strike-ai.eu/v1/systemone \
   }'
 ```
 
-Docs: [strike-ai.eu/docs](https://strike-ai.eu/docs). Contact: [hello@strike-ai.eu](mailto:hello@strike-ai.eu).
+- Site: [strike-ai.eu](https://strike-ai.eu)
+- Docs: [strike-ai.eu/docs](https://strike-ai.eu/docs)
+- Playground: [strike-ai.eu/playground](https://strike-ai.eu/playground)
+- Package: [strike-ai on PyPI](https://pypi.org/project/strike-ai/)
+- Contact: [hello@strike-ai.eu](mailto:hello@strike-ai.eu)
 
 Strike is not affiliated with TypeSafe. The hosted API speaks a System One-compatible wire format.

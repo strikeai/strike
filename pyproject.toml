@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "strike-ai"
-version = "0.1.0"
+version = "0.1.1"
 description = "Client for the Strike API: typed yes/no, choice, and score decisions."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -21,6 +21,7 @@ keywords = ["strike", "decisions"]
 [project.urls]
 Homepage = "https://strike-ai.eu"
 Documentation = "https://strike-ai.eu/docs"
+Playground = "https://strike-ai.eu/playground"
 Repository = "https://github.com/strikeai/strike"
 
 [tool.hatch.build.targets.wheel]
