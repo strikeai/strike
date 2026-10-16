@@ -1,18 +1,45 @@
-# Strike
+# strike-ai
 
-EU-hosted API for typed decisions. You send `state` and a map of questions. You get one typed answer per question, with probabilities.
+Python client for the [Strike](https://strike-ai.eu) API. You send content and typed questions. You get one answer per question, with probabilities.
 
-Strike is in beta. `strike-1` returns real model probabilities. They are not calibrated for production routing yet. The request shape below is what the hosted API accepts today.
+```bash
+pip install strike-ai
+```
 
-This repository is the public reference. It does not contain model weights, training code, or the API server.
+```python
+import os
+from strike_ai import Client
+
+client = Client(api_key=os.environ["STRIKE_API_KEY"])
+result = client.decide(
+    "My card was charged twice for the same order. Please fix this today.",
+    {
+        "is_urgent": {
+            "type": "noul",
+            "instructions": "Does the customer express time pressure?",
+        },
+        "team": {
+            "type": "choice",
+            "instructions": "Which team should handle this message?",
+            "criteria": {
+                "billing": "Payments, refunds, invoices",
+                "technical": "Bugs, outages, integrations",
+                "other": None,
+            },
+        },
+    },
+)
+```
+
+`STRIKE_API_URL` overrides the default base URL, `https://strike-ai.eu`.
+
+Strike is in beta. `strike-1` returns real model probabilities. They are not calibrated for production routing yet.
+
+This repository is the public client. Model weights, training, and the API server are not in it.
 
 ## Endpoint
 
 `POST https://strike-ai.eu/v1/systemone`
-
-Header: `Authorization: Bearer $STRIKE_API_KEY`
-
-Question types:
 
 | Type | You ask | You get |
 | --- | --- | --- |
@@ -20,7 +47,7 @@ Question types:
 | `choice` | One option from a set you define | The top option and a probability for every option |
 | `score` | A rating on levels you define | A probability-weighted score and a probability per level |
 
-## Example
+The same call with curl:
 
 ```bash
 curl https://strike-ai.eu/v1/systemone \
@@ -47,29 +74,6 @@ curl https://strike-ai.eu/v1/systemone \
   }'
 ```
 
-Illustrative response:
-
-```json
-{
-  "model": "strike-1",
-  "answers": {
-    "is_urgent": { "type": "noul", "noul": 0.9 },
-    "team": {
-      "type": "choice",
-      "choice": "billing",
-      "probabilities": { "billing": 0.8, "technical": 0.15, "other": 0.05 },
-      "confidence": 0.7
-    }
-  }
-}
-```
-
-Keys in `answers` match the keys you sent in `questions`.
-
-## Links
-
-- Playground and docs: [strike-ai.eu](https://strike-ai.eu)
-- API reference: [strike-ai.eu/docs](https://strike-ai.eu/docs)
-- Contact: [hello@strike-ai.eu](mailto:hello@strike-ai.eu)
+Docs: [strike-ai.eu/docs](https://strike-ai.eu/docs). Contact: [hello@strike-ai.eu](mailto:hello@strike-ai.eu).
 
 Strike is not affiliated with TypeSafe. The hosted API speaks a System One-compatible wire format.
